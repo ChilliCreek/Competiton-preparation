@@ -1,0 +1,47 @@
+#include<iostream>
+#include<string>
+main(){
+	int t,n,dist,pipeline,pillar,temp,temp1,temp2,price,temp3,temp4;
+	std::string land;
+	std::cin>>n;
+	for(t=0;t<n;t++){
+		std::cin>>dist>>pipeline>>pillar;
+		std::cin>>land;
+		temp=0;
+		price=0;
+		while(temp<dist){
+			if(land[temp]=='0'){
+				temp1=1;
+				for(temp2=temp+1;temp2<dist;temp2++){
+					if(land[temp2]=='0'){
+						temp1++;
+					}else{
+						break;
+					}
+				}
+				price+=(temp1+1)*(pipeline+pillar)+pipeline;
+				temp=temp2;
+			}else{
+				temp1=0;
+				for(temp2=temp+1;temp2<dist;temp2++){
+					if(land[temp2]=='0'){
+						if(land[temp2+1]=='0'){
+							temp4=1;
+							for(temp3=temp2+1;temp3<dist;temp3++){
+								if(land[temp3]=='0'){
+									temp4++;
+								}else{
+									break;
+								}
+							}
+						}else{
+							temp1++;
+						}
+					}else{
+						temp1++;
+					}
+				}
+			}
+		}
+	}
+}
