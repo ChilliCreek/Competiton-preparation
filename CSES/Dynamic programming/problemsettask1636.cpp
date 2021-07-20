@@ -23,20 +23,15 @@ int main(){
 	
 	sort(arr, arr + n);
 	
-	for(int i = 1; i <= x; i++){
-		dp[i] = 0;
-		int j = 0;
-		while(arr[j] <= i && j < n){
-			dp[i] += dp[i - arr[j]];
-			j++;
-			dp[i] %= MOD;
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j <= x; j++){
+			if(j - arr[i] >= 0){
+				dp[j] += dp[j - arr[i]];
+				dp[j] %= MOD;
+			}
 		}
 	}
-	if(dp[x] == INT_MAX){
-		cout << "-1";
-	}
-	else{
-		cout << dp[x];
-	}
+	
+	cout << dp[x];
 	
 }
