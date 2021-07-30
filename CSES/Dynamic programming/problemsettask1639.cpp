@@ -9,31 +9,27 @@ int main(){
 	cin.tie(0);
 	cout.tie(0);
 	
-	int n, x;
-	cin >> n >> x;
-	int people[n];
+	string first, second;
+	cin >> first >> second;
 	
-	for(int p = 0; p < n; p++){
-		cin >> people[p];
+	int len1 = first.length(), len2 = second.length();
+	vector<vector<int>> dp(len1 + 1, vector<int>(len2 + 1, 0));
+	
+	for(int i = 0; i <= len1; i++){
+		dp[i][0] = i;
 	}
 	
-	pair<int, int> dp[1<<n];
-	dp[0] = make_pair(1, 0);
-	for(int i = 1; i < (1 << n); i++){
-		dp[i] = make_pair(n + 1, 0);
-		for(int j = 0; j < n; j++){
-			if(i&(1<<j)){
-				pair<int, int> subset = dp[i^(1<<j)];
-				if(subset.second + people[j] <= x){
-					subset.second += people[j];
-				}
-				else{
-					subset.first++;
-					subset.second = people[j];
-				}
-				dp[i] = min(dp[i], subset);
-			}
+	for(int i = 0; i <= len2; i++){
+		dp[0][i] = i;
+	}
+	
+	
+	for(int i = 1; i <= len1; i++){
+		for(int j = 1; j <= len2; j++){
+			int cost = (first[i - 1] == second[j - 1]) ? 0 : 1;
+			dp[i][j] = min(min(dp[i][j - 1] + 1, dp[i - 1][j] + 1), dp[i - 1][j - 1] + cost);
 		}
 	}
-	cout << dp[(1 << n) - 1].first;
+	
+	cout << dp[len1][len2];
 }
