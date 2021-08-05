@@ -1,2 +1,2 @@
 # Competiton preparation
- Practice problems I solvod to participate in informatics olympiads
+ Practice problems I solved to prepare for informatics olympiads and future interviews
